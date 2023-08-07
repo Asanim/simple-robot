@@ -1,4 +1,12 @@
 #!/bin/sh -e
+# Instructions for setting up temporary AWS credentials
+echo "To input temporary AWS credentials, run the following commands:"
+echo "export AWS_ACCESS_KEY_ID=your-access-key-id"
+echo "export AWS_SECRET_ACCESS_KEY=your-secret-access-key"
+echo "export AWS_SESSION_TOKEN=your-session-token"
+
+input "Press Enter to continue"
+
 if [ ! -d "/opt/aws/greengrass/v2" ]; then
     echo "Greengrass not installed, extracting dependencies"
 
