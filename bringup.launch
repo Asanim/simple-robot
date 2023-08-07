@@ -1,0 +1,41 @@
+<launch>
+    <!-- Launch the robot URDF in Gazebo -->
+    <arg name="world" default="distribution_center.world" />
+    <include file="$(find gazebo_ros)/launch/gazebo.launch.py">
+        <arg name="world" value="$(find my_robot_description)/worlds/$(arg world)" />
+    </include>
+
+    <!-- Load the robot URDF -->
+    <param name="robot_description" command="xacro $(find my_robot_description)/urdf/differential_drive_robot.urdf.xacro" />
+
+    <!-- Start the robot state publisher -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+        <param name="use_sim_time" value="true" />
+    </node>
+
+    <!-- Start the depth camera node -->
+    <node pkg="kinect_ros2" type="kinect_driver" name="kinect" output="screen">
+        <param name="use_sim_time" value="true" />
+    </node>
+
+    <!-- Depth to 2D conversion -->
+    <node pkg="depth_to_2d" type="depth_to_2d_node" name="depth_to_2d" output="screen" />
+
+    <!-- YOLOv11 Object Detection Node -->
+    <node pkg="yolov11_ros2" type="yolo_node" name="yolov11" output="screen" />
+
+    <!-- GMapping for SLAM -->
+    <node pkg="slam_gmapping" type="slam_gmapping" name="slam_gmapping" output="screen">
+        <param name="use_sim_time" value="true" />
+    </node>
+
+    <!-- Navigation Stack -->
+    <node pkg="nav2_bringup" type="bringup_launch.py" name="navigation2" output="screen">
+        <param name="use_sim_time" value="true" />
+    </node>
+
+    <!-- Odometry Publisher -->
+    <node pkg="odometry_publisher" type="odometry_publisher_node" name="odometry" output="screen">
+        <param name="use_sim_time" value="true" />
+    </node>
+</launch>
