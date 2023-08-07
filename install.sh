@@ -56,4 +56,24 @@ cd ~/ros2_ws && colcon build --symlink-install
 echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 
+# Create a systemd service to launch bringup node on startup
+cat <<EOF | sudo tee /etc/systemd/system/ros2_bringup.service
+[Unit]
+Description=ROS 2 Bringup
+After=network.target
+
+[Service]
+ExecStart=/bin/bash -c 'source /opt/ros/humble/setup.bash && ros2 launch my_robot_bringup bringup.launch.py'
+Restart=always
+User=$USER
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable the service
+sudo systemctl daemon-reload
+sudo systemctl enable ros2_bringup.service
+
+
 echo "ROS 2 setup complete. Please reboot your system."
