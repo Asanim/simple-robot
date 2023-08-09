@@ -15,11 +15,11 @@ if [ ! -d /etc/ros/rosdep/sources.list.d/20-default.list ]; then
     sudo sh -c 'echo "deb http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2.list'
 fi
 
-# Install latest LTS version of ROS 2 (Humble or Rolling)
+# Install latest LTS version of ROS 2 (jazzy or Rolling)
 sudo apt update && sudo apt install -y ros-jazzy-desktop
 
 # Source ROS 2
-echo "source /opt/ros/humble/setup.bash" >>~/.bashrc
+echo "source /opt/ros/jazzy/setup.bash" >>~/.bashrc
 source ~/.bashrc
 
 # Install ROS 2 dependencies
@@ -29,9 +29,9 @@ rosdep install --from-paths src --ignore-src -r -y
 
 # Install Kinect Freenect and ROS 2 Wrapper
 sudo apt install -y ros-jazzy-image-pipeline ros-jazzy-vision-msgs ros-jazzy-perception-pcl
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
+mkdir -p ~/simple-robot/src && cd ~/simple-robot/src
 git clone https://github.com/fadlio/kinect_ros2.git
-cd ~/ros2_ws && colcon build --symlink-install
+cd ~/simple-robot && colcon build --symlink-install
 
 # Install Navigation Stack for Differential Drive Robots
 sudo apt install -y ros-jazzy-navigation2 ros-jazzy-nav2-bringup ros-jazzy-slam-toolbox
@@ -43,7 +43,7 @@ sudo apt install -y ros-jazzy-slam-gmapping
 sudo apt install -y gazebo11 ros-jazzy-gazebo-ros-pkgs ros-jazzy-gazebo-plugins
 
 # Install YOLOv11 (assuming a compatible version is available)
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
+mkdir -p ~/simple-robot/src && cd ~/simple-robot/src
 git clone https://github.com/ultralytics/yolov11.git
 cd yolov11 && pip install -r requirements.txt
 
@@ -51,12 +51,12 @@ cd yolov11 && pip install -r requirements.txt
 sudo apt install -y ros-jazzy-aws-iot-ros2
 
 # Install Amazon Kinesis Video Streams SDK
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
+mkdir -p ~/simple-robot/src && cd ~/simple-robot/src
 git clone https://github.com/aws-robotics/kinesisvideo-ros2.git
-cd ~/ros2_ws && colcon build --symlink-install
+cd ~/simple-robot && colcon build --symlink-install
 
 # Source the workspace
-echo "source ~/ros2_ws/install/setup.bash" >>~/.bashrc
+echo "source ~/simple-robot/install/setup.bash" >>~/.bashrc
 source ~/.bashrc
 
 # Create a systemd service to launch bringup node on startup
@@ -66,7 +66,7 @@ Description=ROS 2 Bringup
 After=network.target
 
 [Service]
-ExecStart=/bin/bash -c 'source /opt/ros/humble/setup.bash && ros2 launch my_robot_bringup bringup.launch.py'
+ExecStart=/bin/bash -c 'source /opt/ros/jazzy/setup.bash && ros2 launch my_robot_bringup bringup.launch.py'
 Restart=always
 User=$USER
 
