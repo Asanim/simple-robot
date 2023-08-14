@@ -42,6 +42,18 @@ sudo apt install -y ros-jazzy-slam-gmapping
 # Install Gazebo and Simulation Tools
 sudo apt install -y gazebo11 ros-jazzy-gazebo-ros-pkgs ros-jazzy-gazebo-plugins
 
+# Install dependencies for YOLOv4
+sudo apt-get update
+sudo apt-get install ros-jazzy-image-transport ros-jazzy-cv-bridge
+sudo apt-get install libopencv-dev python3-opencv
+pip install torch torchvision opencv-python numpy
+
+# Install Greengrass SDK
+pip install greengrasssdk
+
+# Install other necessary dependencies
+pip install matplotlib  # For visualization purposes if needed
+
 # Install YOLOv11 (assuming a compatible version is available)
 mkdir -p ~/simple-robot/src && cd ~/simple-robot/src
 git clone https://github.com/ultralytics/yolov11.git
