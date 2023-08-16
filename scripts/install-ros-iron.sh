@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Check for UTF-8
 locale
@@ -29,13 +29,13 @@ sudo apt update && sudo apt install -y ros-dev-tools
 # Upgrade existing packages
 sudo apt upgrade -y
 
-# Install ROS Iron Desktop
-sudo apt install -y ros-iron-desktop
+# Install ROS rolling Desktop
+sudo apt install -y ros-rolling-desktop
 
 # Add ROS setup.bash to .bashrc
-echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/rolling/setup.bash" >> ~/.bashrc
 
 # Source ROS setup.bash for the current session
-source /opt/ros/iron/setup.bash
+source /opt/ros/rolling/setup.bash
 
 echo "ROS 2 installation complete!"

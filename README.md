@@ -19,9 +19,14 @@ A ROS 2-based robot designed for autonomous operation in a simulated environment
 
 - **Video Streaming**: The robot streams live video using Amazon Kinesis Video Streams, providing remote monitoring of its actions.
 
-### Installation Script
+### Installation and Setup
 
 The installation script provided sets up the latest LTS version of ROS 2 and necessary dependencies, including Kinect V1 drivers, the navigation stack for differential drive robots, 2D SLAM (GMapping), and path planning. The script also installs Gazebo for simulation, YOLOv11 for object detection, AWS Greengrass for MQTT communication, and Kinesis Video Streams for live video streaming.
+
+```bash
+./scripts/install-ros-iron.sh
+```
+
 
 ### Launch File
 
