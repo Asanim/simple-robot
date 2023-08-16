@@ -1,2 +1,5 @@
 backdate*
 archive*
+build/
+install/
+log/
