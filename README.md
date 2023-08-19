@@ -134,3 +134,10 @@ The URDF defines a simple differential drive robot with integrated odometry and 
    git clone https://github.com/ros-drivers/rosserial.git
    git clone https://github.com/ros-drivers/freenect_stack.git
    ```
+
+
+
+   ros2 pkg create --build-type ament_cmake cpp_pubsub
+   ros2 pkg create --build-type ament_python --node-name yolov7 simple_inference
+
+   rosdep install -i --from-path src --rosdistro rolling -y
