@@ -141,3 +141,7 @@ The URDF defines a simple differential drive robot with integrated odometry and 
    ros2 pkg create --build-type ament_python --node-name yolov7 simple_inference
 
    rosdep install -i --from-path src --rosdistro rolling -y
+
+
+
+   ros2 topic pub -r 1 /turtlesim1/turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -1.8}}"
