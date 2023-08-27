@@ -1,0 +1,1 @@
+ros2 launch urdf_tutorial display.launch.py model:=urdf/01-myfirst.urdf
