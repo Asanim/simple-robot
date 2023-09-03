@@ -2,6 +2,8 @@
 
 A ROS 2-based robot designed for autonomous operation in a simulated environment. The robot is capable of autonomous navigation, mapping, waypoint selection, and path planning. It integrates a Kinect V1 camera for object detection and depth sensing, while also implementing SLAM and path control. The system is integrated with AWS services, such as MQTT communication, and video streaming through Amazon Kinesis Video Streams. This project is designed for a Raspberry Pi 4 running Ubuntu MATE, utilizing ROS 2. 
 
+In it's current state, this project is developed from tutorials as I transition from ROS1 to ROS2 
+
 ## System Requirements
 
 - **Hardware**: Raspberry Pi 4
