@@ -1,0 +1,1 @@
+rviz2 -d ~/simple-robot/install/urdf_tutorial_r2d2/share/urdf_tutorial_r2d2/r2d2.rviz
