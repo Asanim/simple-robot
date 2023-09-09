@@ -1,6 +1,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <sensor_msgs/msg/image.hpp>
+#include <sensor_msgs/point_cloud2_iterator.hpp>
 #include <libfreenect.hpp>
 #include <libfreenect_sync.h>
 
@@ -70,7 +71,6 @@ private:
             return;
         }
 
-        // Populate image_msg with rgb_data
         image_msg.header.stamp = this->now();
         image_msg.header.frame_id = "kinect_rgb_frame";
         image_msg.height = 480;
