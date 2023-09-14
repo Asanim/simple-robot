@@ -150,3 +150,7 @@ The URDF defines a simple differential drive robot with integrated odometry and 
 
 
 similar projects: https://github.com/fadlio/kinect_ros2
+
+rosdep install --from-paths src --ignore-src -r -y
+
+colcon build --packages-select kinect_ros2
