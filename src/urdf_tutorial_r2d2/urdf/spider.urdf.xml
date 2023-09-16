@@ -180,7 +180,7 @@
   </link>
 
   <joint name="leg2_joint1" type="revolute">
-    <parent link="base"/>
+    <parent link="base_link"/>
     <child link="leg2_upper"/>
     <origin xyz="-0.25 0.25 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
@@ -277,7 +277,7 @@
   </link>
 
   <joint name="leg3_joint1" type="revolute">
-    <parent link="base"/>
+    <parent link="base_link"/>
     <child link="leg3_upper"/>
     <origin xyz="0.25 -0.25 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
@@ -374,7 +374,7 @@
   </link>
 
   <joint name="leg4_joint1" type="revolute">
-    <parent link="base"/>
+    <parent link="base_link"/>
     <child link="leg4_upper"/>
     <origin xyz="-0.25 -0.25 0" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
