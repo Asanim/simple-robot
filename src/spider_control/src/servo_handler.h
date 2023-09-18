@@ -1,7 +1,6 @@
 #ifndef SERVO_HANDLER_H
 #define SERVO_HANDLER_H
 
-#include <Servo.h>
 #include "datatypes.h"
 
 const int servo_pin[4][3] = { {22, 23, 24}, {25, 26, 27}, {28, 29, 30}, {31, 32, 33} };

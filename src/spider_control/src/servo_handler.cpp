@@ -1,8 +1,10 @@
 #include "servo_handler.h"
 #include "utils.h"
-#include <FlexiTimer2.h>
-#include <Arduino.h>
 #include "datatypes.h"
+#include <iostream>
+#include <thread>
+#include <chrono>
+#include <cmath>
 
 extern Servo servo[4][3];
 extern volatile float site_now[4][3];
@@ -12,7 +14,7 @@ extern volatile int rest_counter;
 
 void servo_service(void)
 {
-  sei();
+  // sei();
   static float alpha, beta, gamma;
 
   for (int i = 0; i < 4; i++)
@@ -30,6 +32,7 @@ void servo_service(void)
   }
 
   rest_counter++;
+  std::this_thread::sleep_for(std::chrono::milliseconds(20));
 }
 
 void servo_attach(void)

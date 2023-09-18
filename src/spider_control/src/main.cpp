@@ -2,6 +2,7 @@
   - Project: Remote control Crawling robot
   - Author:  panerqiang@sunfounder.com
   - Date:  2015/1/27
+  - Edited by: Asanim
    -----------------------------------------------------------------------------
   - Overview
   - This project was written for the Crawling robot desigened by Sunfounder.
@@ -24,9 +25,7 @@
 // modified by Regis for spider project
 
 /* Includes ------------------------------------------------------------------*/
-#include <Servo.h>    //to define and control servos
-#include <FlexiTimer2.h>//to set a timer to manage all servos
-#include <Arduino.h>
+#include <servo.h>    //to define and control servos
 #include <math.h>
 #include "utils.h"
 #include "servo_handler.h"
@@ -82,10 +81,6 @@ const float turn_y0 = temp_b * sin(temp_alpha) - turn_y1 - length_side;
    ---------------------------------------------------------------------------*/
 void setup()
 {
-  //start serial for debug
-  Serial.begin(115200);
-  Serial.println("Robot starts initialization");
-  //initialize default parameter
   set_site(0, x_default - x_offset, y_start + y_step, z_boot);
   set_site(1, x_default - x_offset, y_start + y_step, z_boot);
   set_site(2, x_default + x_offset, y_start, z_boot);

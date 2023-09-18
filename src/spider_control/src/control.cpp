@@ -1,7 +1,6 @@
 #include "control.h"
 #include "utils.h"
 #include "servo_handler.h"
-#include <Arduino.h>
 
 extern volatile float site_now[4][3];
 extern volatile float site_expect[4][3];

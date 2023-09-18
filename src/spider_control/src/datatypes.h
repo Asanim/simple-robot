@@ -1,7 +1,7 @@
 #ifndef DATATYPES_H
 #define DATATYPES_H
 
-#include <Servo.h>
+#include <servo.h>
 #include <math.h>
 #include <math.h>
 

@@ -6,7 +6,7 @@
 #endif
 
 #include <ros.h>
-#include <Servo.h> 
+#include <servo.h> 
 
 #include <std_msgs/Int16MultiArray.h>
 #include <std_msgs/String.h>
