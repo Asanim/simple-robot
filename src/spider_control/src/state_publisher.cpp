@@ -5,12 +5,13 @@
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/transform_stamped.h>
+#include "servo.h"
 
 class StatePublisher : public rclcpp::Node
 {
 public:
-    StatePublisher()
-        : Node("state_publisher")
+    StatePublisher(Servo (&servos)[4][3])
+        : Node("state_publisher"), servos_(servos)
     {
         auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(10));
         joint_pub_ = this->create_publisher<sensor_msgs::msg::JointState>("joint_states", qos_profile);
@@ -44,7 +45,12 @@ private:
     {
         // update joint_state
         joint_state_.header.stamp = this->get_clock()->now();
-        joint_state_.position = {swivel_, tilt_, height_};
+        joint_state_.position = {
+            servos_[0][0].read(), servos_[0][1].read(), servos_[0][2].read(),
+            servos_[1][0].read(), servos_[1][1].read(), servos_[1][2].read(),
+            servos_[2][0].read(), servos_[2][1].read(), servos_[2][2].read(),
+            servos_[3][0].read(), servos_[3][1].read(), servos_[3][2].read()
+        };
 
         // update transform
         // (moving in a circle with radius=2)
@@ -53,10 +59,10 @@ private:
         odom_trans_.transform.translation.y = std::sin(angle_) * 2;
         odom_trans_.transform.translation.z = 0.7;
         odom_trans_.transform.rotation = euler_to_quaternion(0, 0, angle_ + M_PI / 2); // roll, pitch, yaw
+        broadcaster_->sendTransform(odom_trans_);
 
         // send the joint state and transform
         joint_pub_->publish(joint_state_);
-        broadcaster_->sendTransform(odom_trans_);
 
         // Create new robot state
         tilt_ += tinc_;
@@ -92,13 +98,15 @@ private:
     double degree_;
     int loop_rate_;
     double tilt_, tinc_, swivel_, angle_, height_, hinc_;
+    Servo (&servos_)[4][3];
 };
 
-int main(int argc, char *argv[])
-{
-    rclcpp::init(argc, argv);
-    auto node = std::make_shared<StatePublisher>();
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
-}
+// int main(int argc, char *argv[])
+// {
+//     rclcpp::init(argc, argv);
+//     Servo servos[4][3];
+//     auto node = std::make_shared<StatePublisher>(servos);
+//     rclcpp::spin(node);
+//     rclcpp::shutdown();
+//     return 0;
+// }
