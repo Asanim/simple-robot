@@ -1,3 +1,6 @@
 [submodule "src/kinect_ros2"]
 	path = src/kinect_ros2
 	url = https://github.com/fadlio/kinect_ros2.git
+[submodule "spiderbot-deeprl"]
+	path = spiderbot-deeprl
+	url = https://github.com/arijitnoobstar/SpiderBot_DeepRL.git

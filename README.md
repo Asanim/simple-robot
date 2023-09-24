@@ -154,3 +154,11 @@ similar projects: https://github.com/fadlio/kinect_ros2
 rosdep install --from-paths src --ignore-src -r -y
 
 colcon build --packages-select kinect_ros2
+
+### Mouse / camera odometry
+https://github.com/Carbon225/ros-mouse-odom
+
+https://kamathsblog.com/odometry-using-optical-flow
+
+
+https://www.instructables.com/ROS-Visual-Odometry/
