@@ -25,12 +25,15 @@
 // modified by Regis for spider project
 
 /* Includes ------------------------------------------------------------------*/
-#include <servo.h>    //to define and control servos
-#include <math.h>
+#include <cmath>
+#include <iostream>
+#include <thread>
+#include <chrono>
 #include "utils.h"
 #include "servo_handler.h"
 #include "control.h"
 #include "datatypes.h"
+#include "state_publisher.h"
 
 /* Servos --------------------------------------------------------------------*/
 //define 12 servos for 4 legs
@@ -81,6 +84,8 @@ const float turn_y0 = temp_b * sin(temp_alpha) - turn_y1 - length_side;
    ---------------------------------------------------------------------------*/
 void setup()
 {
+  std::cout << "Robot starts initialization" << std::endl;
+  //initialize default parameter
   set_site(0, x_default - x_offset, y_start + y_step, z_boot);
   set_site(1, x_default - x_offset, y_start + y_step, z_boot);
   set_site(2, x_default + x_offset, y_start, z_boot);
@@ -93,13 +98,13 @@ void setup()
     }
   }
   //start servo service
-  FlexiTimer2::set(20, servo_service);
-  FlexiTimer2::start();
-  Serial.println("Servo service started");
+  std::thread servo_thread(servo_service);
+  servo_thread.detach();
+  std::cout << "Servo service started" << std::endl;
   //initialize servos
   servo_attach();
-  Serial.println("Servos initialized");
-  Serial.println("Robot initialization Complete");
+  std::cout << "Servos initialized" << std::endl;
+  std::cout << "Robot initialization Complete" << std::endl;
 }
 
 /*
@@ -107,31 +112,51 @@ void setup()
    ---------------------------------------------------------------------------*/
 void loop()
 {
-  Serial.println("Stand");
+  std::cout << "Stand" << std::endl;
   stand();
-  delay(2000);
-  Serial.println("Step forward");
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  std::cout << "Step forward" << std::endl;
   step_forward(20);
-  delay(2000);
+  std::this_thread::sleep_for(std::chrono::seconds(2));
 
 //   init_servo();
-//   delay(2000);
-//   Serial.println("Step back");
+//   std::this_thread::sleep_for(std::chrono::seconds(2));
+//   std::cout << "Step back" << std::endl;
 //   step_back(5);
-//   delay(2000);
-//   Serial.println("Turn left");
+//   std::this_thread::sleep_for(std::chrono::seconds(2));
+//   std::cout << "Turn left" << std::endl;
 //   turn_left(5);
-//   delay(2000);
-//   Serial.println("Turn right");
+//   std::this_thread::sleep_for(std::chrono::seconds(2));
+//   std::cout << "Turn right" << std::endl;
 //   turn_right(5);
-//   delay(2000);
-//   Serial.println("Hand wave");
+//   std::this_thread::sleep_for(std::chrono::seconds(2));
+//   std::cout << "Hand wave" << std::endl;
 //   hand_wave(3);
-//   delay(2000);
-//   Serial.println("Hand wave");
+//   std::this_thread::sleep_for(std::chrono::seconds(2));
+//   std::cout << "Hand wave" << std::endl;
 //   hand_shake(3);
-//   delay(2000);  
-//   Serial.println("Sit");
+//   std::this_thread::sleep_for(std::chrono::seconds(2));  
+//   std::cout << "Sit" << std::endl;
 //   sit();
-//   delay(5000);
+//   std::this_thread::sleep_for(std::chrono::seconds(5));
+}
+
+int main()
+{
+  setup();
+  
+  // Start StatePublisher in a separate thread
+  std::thread state_publisher_thread([]() {
+    rclcpp::init(0, nullptr);
+    auto node = std::make_shared<StatePublisher>(servo);
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+  });
+  state_publisher_thread.detach();
+
+  while (true)
+  {
+    loop();
+  }
+  return 0;
 }
