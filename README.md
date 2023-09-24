@@ -162,3 +162,24 @@ https://kamathsblog.com/odometry-using-optical-flow
 
 
 https://www.instructables.com/ROS-Visual-Odometry/
+
+
+### Next Project
+TODO: Create UAV drone solution for go pros.
+- screw mount 
+- depth camera only and camera odometry 
+- AI controlled 
+- how to detect the diver? 
+  - ai object detection
+  - sonar / 3d underwater mapping 
+- propulsion? 
+- try to base off drone projects with trained ai models...
+
+use cases 
+- drone go pro
+- detection and monitoring of underwater life
+  - leopard sharks
+  - coral reef
+  - seaweed forests
+- detection of divers
+- undersea mapping.
